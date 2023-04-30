@@ -24,6 +24,12 @@ public class DialogueManager : MonoBehaviour
   public GameObject backRoomButton;
 
   public StartPanel startPanel;
+  // End Stuff
+  public GameObject endPanel;
+  public TMP_Text endText;
+  private bool isEnd;
+
+  public VampireManager vampireManager;
 
   // Start is called before the first frame update
   void Start()
@@ -167,6 +173,11 @@ public class DialogueManager : MonoBehaviour
   IEnumerator TypeSentence(string sentence)
   {
     // Debug.Log(sentence);
+    if (isEnd)
+    {
+      dialogueText.text = sentence;
+      yield return null;
+    }
     dialogueText.text = "";
     foreach (char letter in sentence.ToCharArray())
     {
@@ -188,9 +199,11 @@ public class DialogueManager : MonoBehaviour
 
       switch (prefix.ToLower())
       {
-        case "anim":
+        case "black":
+          EndScreen();
           break;
-        case "player":
+        case "char":
+          ChangeVampire();
           break;
         case "backroom":
           print("BACKROOM");
@@ -198,6 +211,18 @@ public class DialogueManager : MonoBehaviour
           break;
       }
     }
+  }
+
+  void EndScreen()
+  {
+    isEnd = true;
+    endPanel.SetActive(true);
+  }
+
+  void ChangeVampire()
+  {
+    print("Vampire Change");
+    vampireManager.ChangeVampire();
   }
 
   void CorpseButtons()
