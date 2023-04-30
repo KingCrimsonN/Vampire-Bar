@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour
 
   public TMP_Text dialogueText;
   public GameObject optionsPanel;
-  public GameObject customButton;
+  public Button customButton;
   public bool isTalking = false;
 
   static Story story;
@@ -22,17 +22,19 @@ public class DialogueManager : MonoBehaviour
   void Start()
   {
     story = new Story(inkFile.text);
-    dialogueText.text = "HEHEHEH";
+    Debug.Log(inkFile.text);
+
     choiceSelected = null;
   }
 
   // Update is called once per frame
   void Update()
   {
-    if (Input.GetKeyDown(KeyCode.Space) && story != null)
+    if ((Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) && story != null)
     {
       if (story.canContinue)
       {
+        // dialogueText.text = story.Continue();
         ProgressDialogue();
 
         if (story.currentChoices.Count > 0)
@@ -40,49 +42,69 @@ public class DialogueManager : MonoBehaviour
           // Create a UI button for every choice availbale
           for (int choiceNum = 0; choiceNum < story.currentChoices.Count; choiceNum++)
           {
-            Debug.Log("CHOICES");
-            // Choice inkChoice = story.currentChoices[choiceNum];
-            // Button choiceButton = CreateChoiceButton(inkChoice.text);
+            Choice inkChoice = story.currentChoices[choiceNum];
+            Button choiceButton = CreateChoiceButton(inkChoice.text);
 
 
             // Add an OnClick listener from code, since we can't access the button component in inspector during gameplay
             // This is an Anonymous Function which is only called when the button is clicked (onCLick). When called, it performs
             // what's after the arrow "=>". In this case, it's calling SelectChoice
-            // choiceButton.onClick.AddListener(() => SelectChoice(inkChoice.index));
+            choiceButton.onClick.AddListener(() => SelectChoice(inkChoice.index));
           }
         }
-      }
-      else
-      {
-        EndDialogue();
-      }
+        else if (!story.canContinue)
+        {
+          EndDialogue();
+        }
 
+      }
     }
+  }
+
+  Button CreateChoiceButton(string choiceText)
+  {
+    // Instantiate the button prefab and make it a child of Choice Buttons
+    Button button = Instantiate(customButton, optionsPanel.transform);
+
+    // Make the button's text that of the dialogue choice
+    button.GetComponentInChildren<TMP_Text>().text = choiceText;
+    return button;
+  }
+
+  void SelectChoice(int choiceIndex)
+  {
+    // Tell the story which choice player has made
+    story.ChooseChoiceIndex(choiceIndex);
+
+    RefreshScreen();
+
+    // Since player made their choice, we can continue with the story
+    ProgressDialogue();
   }
 
   void EndDialogue()
   {
-    // RefreshScreen();
+    RefreshScreen();
     dialoguePanel.SetActive(false);
     // ClearReferences();
   }
 
-  //   void RefreshScreen()
-  //   {
-  //     // Clear displayed choices
-  //     foreach (Transform choiceButton in choiceButtons.transform)
-  //     {
-  //       Destroy(choiceButton.gameObject);
-  //     }
+  void RefreshScreen()
+  {
+    // Clear displayed choices
+    foreach (Transform choiceButton in optionsPanel.transform)
+    {
+      Destroy(choiceButton.gameObject);
+    }
 
-  //     // Clear displayed text
-  //     textDisplay.text = "";
-  //   }
+    // Clear displayed text
+    // textDisplay.text = "";
+  }
 
   public void ProgressDialogue()
   {
-
     string currentSentence = story.Continue();
+    // dialogueText.text = currentSentence;
     StopAllCoroutines();
     StartCoroutine(TypeSentence(currentSentence));
 
@@ -108,25 +130,26 @@ public class DialogueManager : MonoBehaviour
   //     AdvanceFromDecision();
   //   }
 
-  //   public static void SetDecision(object element)
-  //   {
-  //     choiceSelected = (Choice)element;
-  //     story.ChooseChoiceIndex(choiceSelected.index);
-  //   }
+  public static void SetDecision(object element)
+  {
+    choiceSelected = (Choice)element;
+    story.ChooseChoiceIndex(choiceSelected.index);
+  }
 
-  //   void AdvanceFromDecision()
-  //   {
-  //     optionsPanel.setActive(false);
-  //     for (int i = 0; i < optionsPanel.transform.childCount; i++)
-  //     {
-  //       Destroy(optionsPanel.transform.GetChild(i).gameObject);
-  //     }
-  //     choiceSelected = null;
-  //     ProgressDialogue();
-  //   }
+  void AdvanceFromDecision()
+  {
+    optionsPanel.SetActive(false);
+    for (int i = 0; i < optionsPanel.transform.childCount; i++)
+    {
+      Destroy(optionsPanel.transform.GetChild(i).gameObject);
+    }
+    choiceSelected = null;
+    ProgressDialogue();
+  }
 
   IEnumerator TypeSentence(string sentence)
   {
+    Debug.Log(sentence);
     dialogueText.text = "";
     foreach (char letter in sentence.ToCharArray())
     {

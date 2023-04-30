@@ -124,28 +124,28 @@
 //     return button;
 //   }
 
-//   void SelectChoice(int choiceIndex)
+// void SelectChoice(int choiceIndex)
+// {
+//   // Tell the story which choice player has made
+//   story.ChooseChoiceIndex(choiceIndex);
+
+//   RefreshScreen();
+
+//   // Since player made their choice, we can continue with the story
+//   ProgressDialogue();
+// }
+
+// void RefreshScreen()
+// {
+//   // Clear displayed choices
+//   foreach (Transform choiceButton in choiceButtons.transform)
 //   {
-//     // Tell the story which choice player has made
-//     story.ChooseChoiceIndex(choiceIndex);
-
-//     RefreshScreen();
-
-//     // Since player made their choice, we can continue with the story
-//     ProgressDialogue();
+//     Destroy(choiceButton.gameObject);
 //   }
 
-//   void RefreshScreen()
-//   {
-//     // Clear displayed choices
-//     foreach (Transform choiceButton in choiceButtons.transform)
-//     {
-//       Destroy(choiceButton.gameObject);
-//     }
-
-//     // Clear displayed text
-//     textDisplay.text = "";
-//   }
+//   // Clear displayed text
+//   textDisplay.text = "";
+// }
 
 //   void EndDialogue()
 //   {
