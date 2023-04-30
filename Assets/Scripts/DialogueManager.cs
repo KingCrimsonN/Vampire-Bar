@@ -7,22 +7,28 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
+  // Ink variables
   public TextAsset inkFile;
+  public bool isChoosing = false;
+  static Story story;
+  static Choice choiceSelected;
+  List<string> tags;
+  // Dialogue Panel
   public GameObject dialoguePanel;
-
   public TMP_Text dialogueText;
   public GameObject optionsPanel;
   public Button customButton;
-  public bool isTalking = false;
 
-  static Story story;
-  static Choice choiceSelected;
+  // Other Buttons
+  public List<Button> corpseButtons;
+  public Button backRoomButton;
 
   // Start is called before the first frame update
   void Start()
   {
     story = new Story(inkFile.text);
-    Debug.Log(inkFile.text);
+    // Debug.Log(inkFile.text);
+
 
     choiceSelected = null;
   }
@@ -36,9 +42,12 @@ public class DialogueManager : MonoBehaviour
       {
         // dialogueText.text = story.Continue();
         ProgressDialogue();
-
-        if (story.currentChoices.Count > 0)
+      }
+      if (story.currentChoices.Count > 0)
+      {
+        if (!isChoosing)
         {
+          isChoosing = true;
           // Create a UI button for every choice availbale
           for (int choiceNum = 0; choiceNum < story.currentChoices.Count; choiceNum++)
           {
@@ -52,11 +61,10 @@ public class DialogueManager : MonoBehaviour
             choiceButton.onClick.AddListener(() => SelectChoice(inkChoice.index));
           }
         }
-        else if (!story.canContinue)
-        {
-          EndDialogue();
-        }
-
+      }
+      else if (!story.canContinue)
+      {
+        EndDialogue();
       }
     }
   }
@@ -77,6 +85,7 @@ public class DialogueManager : MonoBehaviour
     story.ChooseChoiceIndex(choiceIndex);
 
     RefreshScreen();
+    isChoosing = false;
 
     // Since player made their choice, we can continue with the story
     ProgressDialogue();
@@ -86,7 +95,19 @@ public class DialogueManager : MonoBehaviour
   {
     RefreshScreen();
     dialoguePanel.SetActive(false);
-    // ClearReferences();
+    ClearReferences();
+  }
+
+  void ClearReferences()
+  {
+    // Clear story references
+    story = null;
+    // dialogueNPC = null;
+
+    // Clear UI references after canvas is removed from scene
+    // dialogueCanvas = null;
+    // textDisplay = null;
+    // choiceButtons = null;
   }
 
   void RefreshScreen()
@@ -110,26 +131,6 @@ public class DialogueManager : MonoBehaviour
 
   }
 
-  //   IEnumerator ShowChoices()
-  //   {
-  //     Debug.Log("WE HAVE SOME CHOICES");
-  //     List<Choice> choices = story.currentChoices;
-
-  //     for (int i = 0; i < choices.Count; i++)
-  //     {
-  //       GameObject temp = Instantiate(customButton, optionsPanel.transform);
-  //       temp.transform.GetChild(0).GetComponent<TMP_Text>().text = choices[i].text;
-  //       temp.AddComponent<Selectable>();
-  //       temp.GetComponent<Selectable>().element = choices[i];
-  //       temp.GetComponent<Button>.onClick.AddListener(() => { temp.GetComponent<Selectable>().Decide(); });
-  //     }
-
-  //     optionsPanel.setActive(true);
-
-  //     yield return new WaitUntil(() => { return choiceSelected != null; });
-  //     AdvanceFromDecision();
-  //   }
-
   public static void SetDecision(object element)
   {
     choiceSelected = (Choice)element;
@@ -149,7 +150,7 @@ public class DialogueManager : MonoBehaviour
 
   IEnumerator TypeSentence(string sentence)
   {
-    Debug.Log(sentence);
+    // Debug.Log(sentence);
     dialogueText.text = "";
     foreach (char letter in sentence.ToCharArray())
     {
@@ -159,4 +160,57 @@ public class DialogueManager : MonoBehaviour
     yield return null;
     // Character
   }
+
+  // Parsing the Ink tags
+  void ParseTags()
+  {
+    tags = story.currentTags;
+    foreach (string t in tags)
+    {
+      string prefix = t.Split(' ')[0];
+      string param = t.Split(' ')[1];
+
+      switch (prefix.ToLower())
+      {
+        case "anim":
+          break;
+        case "player":
+          break;
+        case "corpse":
+          break;
+      }
+    }
+  }
+
+  //   void CorpseButtons()
+  //   {
+  //     backRoomButton.SetActive(true);
+  //     if (!isChoosing)
+  //     {
+  //       isChoosing = true;
+  //       // Create a UI button for every choice availbale
+  //       for (int choiceNum = 0; choiceNum < story.currentChoices.Count; choiceNum++)
+  //       {
+  //         Choice inkChoice = story.currentChoices[choiceNum];
+
+  //         corpseButtons[choiceNum].SetActive(true);
+  //         // Add an OnClick listener from code, since we can't access the button component in inspector during gameplay
+  //         // This is an Anonymous Function which is only called when the button is clicked (onCLick). When called, it performs
+  //         // what's after the arrow "=>". In this case, it's calling SelectChoice
+
+  //       }
+  //     }
+  //   }
+
+  //   void SelectCorpse(int choiceIndex)
+  //   {
+  //     // Tell the story which choice player has made
+  //     story.ChooseChoiceIndex(choiceIndex);
+
+  //     RefreshScreen();
+  //     isChoosing = false;
+
+  //     // Since player made their choice, we can continue with the story
+  //     ProgressDialogue();
+  //   }
 }

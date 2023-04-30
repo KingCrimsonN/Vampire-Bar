@@ -79,40 +79,40 @@
 //     choiceButtons = dialogueCanvas.dialogueChoices;
 //   }
 
-//   // This where dialogue control decisions are made
-//   public void ProgressDialogue()
+// // This where dialogue control decisions are made
+// public void ProgressDialogue()
+// {
+//   // If there's another line to show in the story, display it
+//   if (story.canContinue)
 //   {
-//     // If there's another line to show in the story, display it
-//     if (story.canContinue)
+//     // Continue() provides the next line and also checks if it can continue after that (there're more lines)
+//     // or not (there're choices or an END divert in the story)
+//     textDisplay.text = story.Continue();
+//   }
+
+
+//   // After Continue(), check if the story reached any choices
+//   if (story.currentChoices.Count > 0)
+//   {
+//     // Create a UI button for every choice availbale
+//     for (int choiceNum = 0; choiceNum < story.currentChoices.Count; choiceNum++)
 //     {
-//       // Continue() provides the next line and also checks if it can continue after that (there're more lines)
-//       // or not (there're choices or an END divert in the story)
-//       textDisplay.text = story.Continue();
-//     }
+//       Choice inkChoice = story.currentChoices[choiceNum];
+//       Button choiceButton = CreateChoiceButton(inkChoice.text);
 
 
-//     // After Continue(), check if the story reached any choices
-//     if (story.currentChoices.Count > 0)
-//     {
-//       // Create a UI button for every choice availbale
-//       for (int choiceNum = 0; choiceNum < story.currentChoices.Count; choiceNum++)
-//       {
-//         Choice inkChoice = story.currentChoices[choiceNum];
-//         Button choiceButton = CreateChoiceButton(inkChoice.text);
-
-
-//         // Add an OnClick listener from code, since we can't access the button component in inspector during gameplay
-//         // This is an Anonymous Function which is only called when the button is clicked (onCLick). When called, it performs
-//         // what's after the arrow "=>". In this case, it's calling SelectChoice
-//         choiceButton.onClick.AddListener(() => SelectChoice(inkChoice.index));
-//       }
-//     }
-//     else if (!story.canContinue)
-//     {
-//       // If there aren't choices and the story still can't continue, it reached the end
-//       EndDialogue();
+//       // Add an OnClick listener from code, since we can't access the button component in inspector during gameplay
+//       // This is an Anonymous Function which is only called when the button is clicked (onCLick). When called, it performs
+//       // what's after the arrow "=>". In this case, it's calling SelectChoice
+//       choiceButton.onClick.AddListener(() => SelectChoice(inkChoice.index));
 //     }
 //   }
+//   else if (!story.canContinue)
+//   {
+//     // If there aren't choices and the story still can't continue, it reached the end
+//     EndDialogue();
+//   }
+// }
 
 //   Button CreateChoiceButton(string choiceText)
 //   {
