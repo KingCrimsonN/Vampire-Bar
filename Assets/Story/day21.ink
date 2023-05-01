@@ -118,7 +118,7 @@ CHARLIE: Nah, I don't think I'm sticking around. Need to get a move on, what wit
 
 === d1_1_body2 ===
 ~choice1=2
-CHARLIE: Blaargh... what the hell is this stuff? I'm feeling even worse now. Are you trying to poison me? Fuck you man, I'm outta here.
+CHARLIE: Blaargh... what the hell is this stuff? I'm feeling even worse now. Are you trying to poison me? Fuck you man, I'm outta here. 
     * [Next client] -> d1_2
 
 === d1_1_body3 ===
@@ -157,8 +157,8 @@ DIEGO: Surprise me! Just make sure it's not bland and boring like the regular st
     
 === d1_2_body1 ===
 ~choice2=1
-DIEGO: What the hell, man? I specifically asked for something spicy, and you're gonna give me the blandest freaking blood I've ever had? I'm not paying for this shit. Hasta la vista.
-~money += 0
+DIEGO: What the hell, man? I specifically asked for something spicy, and you're gonna give me the blandest freaking blood I've ever had? I'm not paying for this shit. Hasta la vista. 
+
     * [Next client] -> d1_3
 
 === d1_2_body2 ===
@@ -456,7 +456,6 @@ TIMOTEI: What possessed me to come here in the first place? I'm in deep shit if 
 
 === d2_1_body3 ===
 TIMOTEI: Mm. Strange stuff, this. I... feel so tired now. I just want to lie down and have a nap. Here, take the money. And I need... rest. # sound money
-
 ~money += 50
 
 * [Next client] -> d2_2
@@ -499,8 +498,8 @@ NINA: I don't know. Anything... soothing?
 NINA: Huh? I have a weird sensation in my chest. But I'm also feeling... happy, I guess? Definitely not as anxious as moments ago.
 
 NINA: I don't know what you gave me, but I think it's working. Thank you! Here's the money. # sound money
-
 ~money += 50
+
 * [Next client] -> d2_3
 
 === d2_2_body2 ===
@@ -515,8 +514,8 @@ NINA: Oh god oh god oh god.
 NINA: This is very... calming. I feel... relaxed. Even tired, but in a pleasant kind of way.
 
 NINA: I think I will go home and lie down. I might actually be able to get some sleep... for a change. Thank you! # sound money
-
 ~money += 75
+
 * [Next client] -> d2_3
 
 === d2_3 ===
@@ -618,9 +617,9 @@ YUUKA: How much is the liquid codeine?
 
 === d2_end ===
 # black
-Tonight, you made {money - oldmoney} dollars. {money - oldmoney <= 50: One of the worse days your business has seen}{money - oldmoney > 50: Not much, but it could be worse}{richard1 == 1:. At least, you have learned something potentially important}<>
+Tonight, you made {money - oldmoney} dollars. {money - oldmoney <= 50: One of the worse days your business has seen}{money - oldmoney > 50: Not much, but it could be worse}{richard1 == 1:. At least, you've learned something important}<>
 {
--d2_3_richard: , and a friend is willing to help you figure out it.
+-d2_3_richard: , and a friend is willing to help you figure it out.
 -else: .
 }
 

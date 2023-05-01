@@ -18,6 +18,11 @@ public class LabelScript : MonoBehaviour
     serveButton.onClick.AddListener(() => { dm.isChoosing = false; });
   }
 
+  public void UpdateText()
+  {
+    labelText.text = dm.GetVariable("body" + index);
+  }
+
   // Update is called once per frame
   void Update()
   {
