@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Vampire: {fileID: 5218909368583263579}
+  animator: {fileID: 921489390934102717}
   vampires: []
   vampireTextures:
   - {fileID: 21300000, guid: 8404155bb6589984a86730155c0d9d79, type: 3}

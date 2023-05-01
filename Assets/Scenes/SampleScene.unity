@@ -669,7 +669,7 @@ AudioSource:
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
-  Mute: 1
+  Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
   Priority: 128
@@ -3346,32 +3346,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1821498288 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8989300220983414560, guid: c4298454ae5121c419dd5accad38b1e7, type: 3}
-  m_PrefabInstance: {fileID: 8989300220455950626}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1821498292
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1821498288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6eed53eda3d554b4e914a5c7c9f10810, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Vampire: {fileID: 0}
-  vampires: []
-  vampireTextures: []
 --- !u!114 &1821498294 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6078593116103021314, guid: c4298454ae5121c419dd5accad38b1e7, type: 3}
   m_PrefabInstance: {fileID: 8989300220455950626}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1821498288}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6eed53eda3d554b4e914a5c7c9f10810, type: 3}
@@ -3789,6 +3769,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5231687023927805490, guid: a71418046233bbb468509d5f32c6023d, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5231687023927805490, guid: a71418046233bbb468509d5f32c6023d, type: 3}
       propertyPath: m_margin.w
       value: -3.0506134
       objectReference: {fileID: 0}
@@ -4052,6 +4036,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 406695615}
     m_Modifications:
+    - target: {fileID: 5218909368583263579, guid: c4298454ae5121c419dd5accad38b1e7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218909368583263579, guid: c4298454ae5121c419dd5accad38b1e7, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218909368583263579, guid: c4298454ae5121c419dd5accad38b1e7, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218909368583263579, guid: c4298454ae5121c419dd5accad38b1e7, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218909368583263579, guid: c4298454ae5121c419dd5accad38b1e7, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8989300220983414560, guid: c4298454ae5121c419dd5accad38b1e7, type: 3}
       propertyPath: m_Name
       value: Vampri

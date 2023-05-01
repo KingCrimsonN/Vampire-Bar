@@ -8,13 +8,23 @@ public class VampireManager : MonoBehaviour
 
   public Image Vampire;
 
+  public Animator animator;
+
   public List<string> vampires;
 
   public List<Sprite> vampireTextures;
+  private int vampireIndex = -1;
+
+  public void VampireOut()
+  {
+    animator.SetBool("Served", true);
+  }
 
   public void ChangeVampire()
   {
-    Vampire.sprite = vampireTextures[1];
+    vampireIndex++;
+    Vampire.sprite = vampireTextures[vampireIndex];
+    animator.SetBool("Served", false);
   }
 
   //   public Sprite 
