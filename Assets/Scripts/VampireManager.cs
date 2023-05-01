@@ -20,11 +20,17 @@ public class VampireManager : MonoBehaviour
     animator.SetBool("Served", true);
   }
 
+  public void VampireStop()
+  {
+    animator.SetBool("PopIn", false);
+  }
+
   public void ChangeVampire()
   {
     vampireIndex++;
     Vampire.sprite = vampireTextures[vampireIndex];
     animator.SetBool("Served", false);
+    animator.SetBool("PopIn", true);
   }
 
   //   public Sprite 

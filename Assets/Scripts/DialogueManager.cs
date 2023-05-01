@@ -18,6 +18,7 @@ public class DialogueManager : MonoBehaviour
   public TMP_Text dialogueText;
   public GameObject optionsPanel;
   public Button customButton;
+  public TMP_Text moneyText;
 
   // Other Buttons
   public List<Button> corpseButtons;
@@ -32,12 +33,14 @@ public class DialogueManager : MonoBehaviour
   private bool busy = false;
 
   public VampireManager vampireManager;
+  public AudioManager audioManager;
 
   // Start is called before the first frame update
   void Start()
   {
     story = new Story(inkFile.text);
     choiceSelected = null;
+    moneyText.text = "Money: " + story.variablesState["money"];
     startPanel.Init(GetVariable("body1"), GetVariable("body2"), GetVariable("body3"));
   }
 
@@ -137,6 +140,7 @@ public class DialogueManager : MonoBehaviour
   {
     string currentSentence = story.Continue();
     ParseTags();
+    moneyText.text = "Money: " + story.variablesState["money"];
     // dialogueText.text = currentSentence;
     StopAllCoroutines();
     StartCoroutine(TypeSentence(currentSentence));
@@ -172,6 +176,7 @@ public class DialogueManager : MonoBehaviour
     if (busy)
     {
       yield return new WaitForSeconds(3f);
+      vampireManager.VampireStop();
       busy = false;
     }
     foreach (char letter in sentence.ToCharArray())
@@ -204,6 +209,7 @@ public class DialogueManager : MonoBehaviour
           break;
         case "backroom":
           print("BACKROOM");
+          // vampireManager.Backroom();
           CorpseButtons();
           break;
       }
@@ -214,6 +220,7 @@ public class DialogueManager : MonoBehaviour
   {
     isEnd = true;
     endPanel.SetActive(true);
+    audioManager.Stop();
   }
 
   IEnumerator ChangeVampire()
