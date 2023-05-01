@@ -5,6 +5,9 @@ VAR choice1 = 0
 VAR choice2 = 0
 VAR choice3 = 0
 VAR choiceY1 = 0
+VAR day = 1
+
+# black
 
 THE BLOODIEST MARY
 By invitation only.
@@ -13,7 +16,9 @@ All drinks $50. Tips are appreciated.
 * [Start] -> d1_intro
 
 === d1_intro ===
-VAR body1 = "A woman in her early twenties, passed away due to blunt force injury to the head. Body found in an alley next to a health food store."
+~ day = 1
+
+VAR body1 = "A young woman wearing running clothes. Body found in an alley next to a health food store. Cause of death: blunt force injury to the head."
 VAR body2 = "A teenage boy harvested from the local morgue. Acoording to the coroner's report, he died of acute respiratory distress after ingesting a laundry detergent pod."
 VAR body3 = "Male, late thirties, retrieved from a local bar after starting a drunken fight and getting knocked out."
 A new delivery has arrived.
@@ -59,7 +64,9 @@ CHARLIE: I got violently sick after this, and I'm just... not feeling well, you 
 
 === d1_choose_body ===
 # backroom
-{ 
+{
+- day == 1:
+    { 
     - customer == 1: 
     + [Body 1] -> d1_1_body1
     + [Body 2] -> d1_1_body2
@@ -76,6 +83,14 @@ CHARLIE: I got violently sick after this, and I'm just... not feeling well, you 
     + [Body 1] -> d1_Y_body1
     + [Body 2] -> d1_Y_body2
     + [Body 3] -> d1_Y_body3
+    }
+- day == 2:
+    { 
+    - customer == 1: 
+    + [Body 1] -> d2_1_body1
+    + [Body 2] -> d2_1_body2
+    + [Body 3] -> d2_1_body3
+    }
 }
     
 === d1_1_body1 ===
@@ -115,7 +130,7 @@ DIEGO: Heya, how's it going? A friend told me about this place. Can you hook me 
     * [You came to the right place!] -> d1_2_yep
 
 === d1_2_what ===
-YOU: Spicy? We don't do spices. We just focus on the... core product.
+YOU: Spicy? All of our product is... flavorful. But we don't do spices per se.
 
 DIEGO: Man, I don't mean literally spicy. I want something with a kick, you know? Something... bad. Not bland and boring. 
 -> d1_choose_body
@@ -330,7 +345,7 @@ Another customer <>
     -choice2 == 1:
     will look for other places to get his fix.
     -choice2 == 2:
-    is high on poisoned blood and happy about it.
+    is high on poisoned blood and ecstatic about it.
     -choice2 == 3:
     might just pick a fight with a random passerby.
 }
@@ -355,7 +370,80 @@ And an old friend of yours <>
     punched a shop window, shattering it into tiny bits, and felt a little bit alive.
 }
 
-+ [OK] -> toend
++ [Next day] -> d2_intro
 
-=== toend ===
+=== d2_intro ===
+~ day = 2
+~ body1 = "Female, late twenties, had a heart attack in a nightclub after overdosing on MDMA."
+~ body2 = "A man in his forties, kidnapped and stabbed to death following a money dispute."
+~ body3 = "Male, mid-thirties, taken off life support after spending several months in a coma."
+A new delivery has arrived.
+
+DONOR 1:
+{body1}
+
+DONOR 2:
+{body2}
+
+DONOR 3:
+{body3}
+
+    * [OK] -> d2_1
+    
+=== d2_1 ===
+# bar
+# char Timotei
+~ customer = 1
+
+TIMOTEI: Ooh, it's so good to sit down. I'm so tired.
+
+    + [Long night?] -> d2_1_night
+    + [Anything I can get you?] -> d2_1_drink
+    
+=== d2_1_night ===
+YOU: Long night?
+
+TIMOTEI: Every night is damn long when you work in the docks. We get new shipments each night, and all those crates and containers need unloading.
+
+TIMOTEI: Let me tell you, I'm a vampire and I can barely feel my arms after handling those goddman crates for hours on end. I have no idea how the humans are managing to survive in this job.
+
+TIMOTEI: I have to go back there and finish my work, but I'm so exhausted already.
+-> d1_choice
+
+=== d2_1_drink ===
+YOU: Anyting I can get you?
+
+TIMOTEI: I sure hope so. I could use a boost after handling those goddman crates for hours on end. And I have another shipment to unload tonight.
+
+-> d1_choice
+
+=== d2_1_body1 ===
+TIMOTEI: Wow, that's something else! I feel energized. I figure I can handle those crates quite easily now. Thanks pal, much appreciated!
+
+TIMOTEI: I don't earn enough to tip, but maybe I can tip you off instead. Someone in the docks has been asking around about you. This is how I learned about this place, actually.
+
+TIMOTEI: The guy goes by Richard, although who knows if it's his real name. He works for Germane Cargo, which owns a small warehouse in the docks, although I've never seen any actual cargo go in or out.
+
+TIMOTEI: Anyway, I have to go now. Good luck!
+
+~money += 50
+* [Next client] -> d2_2
+
+=== d2_1_body2 ===
+TIMOTEI: Oh god, what is this? It tastes strange. Did you spike my drink? Are you trying to kill me?
+
+YOU: I assure you I have no intention-
+
+TIMOTEI: What possessed me to come here in the first place? I'm in deep shit if they discover I've been slacking off. What an idiot, what was I thinking?
+* [Next client] -> d2_2
+
+=== d2_1_body3 ===
+TIMOTEI: Mm. Strange stuff, this. I... feel so tired now. I just want to lie down and have a nap. Here, take the money. And I need... rest.
+
+~money += 50
+
+* [Next client] -> d2_2
+
+=== d2_2 ===
+
 -> END  

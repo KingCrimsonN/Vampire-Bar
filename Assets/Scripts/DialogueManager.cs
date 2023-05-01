@@ -19,17 +19,20 @@ public class DialogueManager : MonoBehaviour
   public GameObject optionsPanel;
   public Button customButton;
   public TMP_Text moneyText;
+  public Animator moneyAnimator;
 
   // Other Buttons
   public List<Button> corpseButtons;
   public GameObject backRoomButton;
-
   public StartPanel startPanel;
   // End Stuff
   public GameObject endPanel;
   public TMP_Text endText;
+  public GameObject endOptions;
+  public Button endButton;
   // Bools
-  private bool isEnd;
+  private bool dayEnd;
+  private bool income;
   private bool busy = false;
 
   public VampireManager vampireManager;
@@ -90,8 +93,12 @@ public class DialogueManager : MonoBehaviour
 
   Button CreateChoiceButton(string choiceText)
   {
+    Button button;
     // Instantiate the button prefab and make it a child of Choice Buttons
-    Button button = Instantiate(customButton, optionsPanel.transform);
+    if (dayEnd)
+      button = Instantiate(endButton, endOptions.transform);
+    else
+      button = Instantiate(customButton, optionsPanel.transform);
 
     // Make the button's text that of the dialogue choice
     button.GetComponentInChildren<TMP_Text>().text = choiceText;
@@ -102,6 +109,13 @@ public class DialogueManager : MonoBehaviour
   {
     // Tell the story which choice player has made
     story.ChooseChoiceIndex(choiceIndex);
+    audioManager.PlaySound(0);
+    if (backRoomButton.active)
+    {
+      backRoomButton.SetActive(false);
+      income = true;
+      StartCoroutine(GainMoney());
+    }
 
 
     RefreshScreen();
@@ -109,6 +123,16 @@ public class DialogueManager : MonoBehaviour
 
     // Since player made their choice, we can continue with the story
     ProgressDialogue();
+  }
+
+  IEnumerator GainMoney()
+  {
+    moneyAnimator.SetBool("Income", true);
+    audioManager.PlaySound(2);
+    yield return new WaitForSeconds(0.5f);
+    moneyAnimator.SetBool("Income", false);
+    income = false;
+    yield return null;
   }
 
   void EndDialogue()
@@ -126,6 +150,14 @@ public class DialogueManager : MonoBehaviour
 
   void RefreshScreen()
   {
+    if (dayEnd)
+    {
+      foreach (Transform choiceButton in endOptions.transform)
+      {
+        Destroy(choiceButton.gameObject);
+      }
+      return;
+    }
     // Clear displayed choices
     foreach (Transform choiceButton in optionsPanel.transform)
     {
@@ -138,11 +170,15 @@ public class DialogueManager : MonoBehaviour
 
   public void ProgressDialogue()
   {
+    audioManager.PlaySound(1);
     string currentSentence = story.Continue();
     ParseTags();
     moneyText.text = "Money: " + story.variablesState["money"];
-    // dialogueText.text = currentSentence;
     StopAllCoroutines();
+    if (income)
+    {
+      StartCoroutine(GainMoney());
+    }
     StartCoroutine(TypeSentence(currentSentence));
 
   }
@@ -167,9 +203,9 @@ public class DialogueManager : MonoBehaviour
   IEnumerator TypeSentence(string sentence)
   {
     // Debug.Log(sentence);
-    if (isEnd)
+    if (dayEnd)
     {
-      dialogueText.text = sentence;
+      endText.text = sentence;
       yield return null;
     }
     dialogueText.text = "";
@@ -182,7 +218,8 @@ public class DialogueManager : MonoBehaviour
     foreach (char letter in sentence.ToCharArray())
     {
       dialogueText.text += letter;
-      yield return new WaitForSeconds(0.02f);
+      // audioManager.PlaySound(1);
+      yield return new WaitForSeconds(0.01f);
     }
     yield return null;
     // Character
@@ -202,10 +239,12 @@ public class DialogueManager : MonoBehaviour
         case "black":
           EndScreen();
           break;
+        case "bar":
+          NewDay();
+          break;
         case "char":
           busy = true;
           StartCoroutine(ChangeVampire());
-          // ChangeVampire();
           break;
         case "backroom":
           print("BACKROOM");
@@ -218,9 +257,16 @@ public class DialogueManager : MonoBehaviour
 
   void EndScreen()
   {
-    isEnd = true;
+    dayEnd = true;
     endPanel.SetActive(true);
     audioManager.Stop();
+  }
+
+  void NewDay()
+  {
+    dayEnd = false;
+    endPanel.SetActive(false);
+    audioManager.Play();
   }
 
   IEnumerator ChangeVampire()

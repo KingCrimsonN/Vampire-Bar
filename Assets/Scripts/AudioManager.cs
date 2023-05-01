@@ -26,10 +26,5 @@ public class AudioManager : MonoBehaviour
   {
     musicSource.Stop();
   }
-  // Start is called before the first frame update
-  void Start()
-  {
-    Play();
-  }
 
 }
