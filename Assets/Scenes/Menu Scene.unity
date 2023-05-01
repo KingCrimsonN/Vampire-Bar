@@ -562,8 +562,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 16.0704, y: -1.1479}
-  m_SizeDelta: {x: 826.7472, y: 458.6484}
+  m_AnchoredPosition: {x: 16.0704, y: -25.27}
+  m_SizeDelta: {x: 826.75, y: 410.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &425143992
 MonoBehaviour:
@@ -588,19 +588,25 @@ MonoBehaviour:
   m_text: 'A Ludum Dare #53 Game by
 
 
-    Mikhail Fiedotau - Game Design, Narrative
+    Mykhailo Stavrovskyi - Game Design, Development
 
-    Mykhailo
-    Stavrovskyi - Game Design and Development
+    Mikhail
+    Fiadotau - Game Design, Narrative
+
+    Hassan Fajri and Raya "weirdooalien"
+    - Additional Narrative Design
+
+    Ahmed Pasha Faisal - Art
+
+    Valeryi Gakh
+    - Backroom Art
+
+    Landmine - Vampire Art
 
     Sofia Scherbakova - Music
 
-    Faisal
-    Pasha Kopite - Art
-
-    Valeryi Gakh - Art
-
-'
+    Special
+    thanks to Yogini Mauree for inspiration'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ee74ea2bcecbfea4b8b0703f02e53d6a, type: 2}
   m_sharedMaterial: {fileID: -8593804907499524218, guid: ee74ea2bcecbfea4b8b0703f02e53d6a, type: 2}
@@ -635,7 +641,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 2
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0

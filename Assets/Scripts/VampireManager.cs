@@ -13,7 +13,7 @@ public class VampireManager : MonoBehaviour
   public List<string> vampires;
 
   public List<Sprite> vampireTextures;
-  private int vampireIndex = -1;
+  private int vampireIndex = 0;
 
   public void VampireOut()
   {
@@ -31,6 +31,11 @@ public class VampireManager : MonoBehaviour
     Vampire.sprite = vampireTextures[vampireIndex];
     animator.SetBool("Served", false);
     animator.SetBool("PopIn", true);
+  }
+
+  public void MakeInvisible()
+  {
+    Vampire.sprite = vampireTextures[0];
   }
 
   //   public Sprite 

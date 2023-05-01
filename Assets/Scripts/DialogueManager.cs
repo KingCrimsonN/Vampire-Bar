@@ -8,24 +8,31 @@ using TMPro;
 public class DialogueManager : MonoBehaviour
 {
   // Ink variables
+  [Header("Ink Variables")]
   public TextAsset inkFile;
   public bool isChoosing = false;
   static Story story;
   static Choice choiceSelected;
   List<string> tags;
   // Dialogue Panel
+  [Header("Dialogue Variables")]
   public GameObject dialoguePanel;
   public TMP_Text dialogueText;
   public GameObject optionsPanel;
   public Button customButton;
+
+  // Money Variables
+  [Header("Economy Variables")]
   public TMP_Text moneyText;
   public Animator moneyAnimator;
 
   // Other Buttons
+  [Header("Other Buttons")]
   public List<Button> corpseButtons;
   public GameObject backRoomButton;
   public StartPanel startPanel;
   // End Stuff
+  [Header("Black Screen")]
   public GameObject endPanel;
   public TMP_Text endText;
   public GameObject endOptions;
@@ -35,6 +42,8 @@ public class DialogueManager : MonoBehaviour
   private bool income;
   private bool busy = false;
 
+  //Managers 
+  [Header("Managers")]
   public VampireManager vampireManager;
   public AudioManager audioManager;
 
@@ -61,7 +70,6 @@ public class DialogueManager : MonoBehaviour
       {
         if (story.canContinue)
         {
-          // dialogueText.text = story.Continue();
           ProgressDialogue();
         }
         if (story.currentChoices.Count > 0)
@@ -113,8 +121,6 @@ public class DialogueManager : MonoBehaviour
     if (backRoomButton.active)
     {
       backRoomButton.SetActive(false);
-      income = true;
-      StartCoroutine(GainMoney());
     }
 
 
@@ -128,7 +134,6 @@ public class DialogueManager : MonoBehaviour
   IEnumerator GainMoney()
   {
     moneyAnimator.SetBool("Income", true);
-    audioManager.PlaySound(2);
     yield return new WaitForSeconds(0.5f);
     moneyAnimator.SetBool("Income", false);
     income = false;
@@ -202,7 +207,6 @@ public class DialogueManager : MonoBehaviour
 
   IEnumerator TypeSentence(string sentence)
   {
-    // Debug.Log(sentence);
     if (dayEnd)
     {
       endText.text = sentence;
@@ -218,11 +222,9 @@ public class DialogueManager : MonoBehaviour
     foreach (char letter in sentence.ToCharArray())
     {
       dialogueText.text += letter;
-      // audioManager.PlaySound(1);
       yield return new WaitForSeconds(0.01f);
     }
     yield return null;
-    // Character
   }
 
   // Parsing the Ink tags
@@ -232,6 +234,7 @@ public class DialogueManager : MonoBehaviour
     foreach (string t in tags)
     {
       string prefix = t.Split(' ')[0];
+      // In case we'll make it bigger, parameters will be useful
       //   string param = t.Split(' ')[1];
 
       switch (prefix.ToLower())
@@ -246,9 +249,11 @@ public class DialogueManager : MonoBehaviour
           busy = true;
           StartCoroutine(ChangeVampire());
           break;
+        case "sound":
+          audioManager.PlaySound(2);
+          income = true;
+          break;
         case "backroom":
-          print("BACKROOM");
-          // vampireManager.Backroom();
           CorpseButtons();
           break;
       }
@@ -259,6 +264,7 @@ public class DialogueManager : MonoBehaviour
   {
     dayEnd = true;
     endPanel.SetActive(true);
+    vampireManager.MakeInvisible();
     audioManager.Stop();
   }
 
