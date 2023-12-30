@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Ink.Runtime;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -113,12 +114,25 @@ public class DialogueManager : MonoBehaviour
     return button;
   }
 
+  Button CreateEndButton()
+  {
+    print("FUCK");
+    Button button;
+    endPanel.transform.GetChild(0).transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
+    button = Instantiate(endButton, endPanel.transform.GetChild(0).transform.GetChild(1).transform);
+
+    button.GetComponentInChildren<TMP_Text>().text = "Play Again";
+    button.onClick.AddListener(delegate { SceneManager.LoadScene(0); });
+
+    return button;
+  }
+
   public void SelectChoice(int choiceIndex)
   {
     // Tell the story which choice player has made
     story.ChooseChoiceIndex(choiceIndex);
     audioManager.PlaySound(0);
-    if (backRoomButton.active)
+    if (backRoomButton.activeSelf)
     {
       backRoomButton.SetActive(false);
     }
@@ -255,6 +269,9 @@ public class DialogueManager : MonoBehaviour
           break;
         case "backroom":
           CorpseButtons();
+          break;
+        case "game_end":
+          Button endButton = CreateEndButton();
           break;
       }
     }

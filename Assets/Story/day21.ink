@@ -649,6 +649,7 @@ friend of yours <>
 -d2_3_body3: is{d2_2_body3:, too,} asleep in her sofa, her outdoor clothes still on and her mind - for the first time in a while - completely blank.
 }
 
+# game_end
 This is the end of the demo. Thank you for playing! 
 
 -> END  
