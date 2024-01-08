@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3022450999965684868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3022450999965684875}
+  - component: {fileID: 3022450999965684874}
+  m_Layer: 5
+  m_Name: DialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3022450999965684875
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3022450999965684868}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 775.61896, y: 346.08423, z: 0}
+  m_LocalScale: {x: 0.72661215, y: 0.72661215, z: 0.72661215}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3022450999965684874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3022450999965684868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6fec7459955cee4aa21efee6c2ad735, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inkFile: {fileID: 4900000, guid: 2bec707b3abdebf4b9f0ebf661b57422, type: 3}
+  isChoosing: 0
+  dialoguePanel: {fileID: 0}
+  dialogueText: {fileID: 0}
+  optionsPanel: {fileID: 0}
+  customButton: {fileID: 8393393512395285685, guid: 99af45b1163a2484089a8fc1cd6c2845, type: 3}
+  moneyText: {fileID: 0}
+  moneyAnimator: {fileID: 0}
+  corpseButtons: []
+  backRoomButton: {fileID: 0}
+  startPanel: {fileID: 0}
+  endPanel: {fileID: 0}
+  endText: {fileID: 0}
+  endOptions: {fileID: 0}
+  endButton: {fileID: 6894238111860146199, guid: 97f0a45526c8e454cb2187447cc19e93, type: 3}
+  vampireManager: {fileID: 0}
+  audioManager: {fileID: 0}

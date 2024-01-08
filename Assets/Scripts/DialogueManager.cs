@@ -31,7 +31,7 @@ public class DialogueManager : MonoBehaviour
   [Header("Other Buttons")]
   public List<Button> corpseButtons;
   public GameObject backRoomButton;
-  public StartPanel startPanel;
+
   // End Stuff
   [Header("Black Screen")]
   public GameObject endPanel;
@@ -54,7 +54,6 @@ public class DialogueManager : MonoBehaviour
     story = new Story(inkFile.text);
     choiceSelected = null;
     moneyText.text = "Money: " + story.variablesState["money"];
-    startPanel.Init(GetVariable("body1"), GetVariable("body2"), GetVariable("body3"));
   }
 
   public string GetVariable(string name)
